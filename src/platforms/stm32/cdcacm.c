@@ -32,6 +32,7 @@
 #include <libopencm3/cm3/scb.h>
 #include <libopencm3/usb/dfu.h>
 #include <stdlib.h>
+#include <libopencm3/cm3/systick.h>
 
 #include "platform.h"
 #include "gdb_if.h"
@@ -572,4 +573,23 @@ static char *get_dev_unique_id(char *s)
 	s[8] = 0;
 
 	return s;
+}
+
+void platform_udelay(uint16_t usec)
+{
+    int32_t start_ticks;
+    int32_t current_ticks, summed_ticks=0;
+    int32_t end_ticks;
+
+    start_ticks = systick_get_value();
+    end_ticks = (usec * (SYSTICK_RELOAD/100000) -1);
+/* Systick counts backwards! */
+    while (summed_ticks < end_ticks)
+    {
+        current_ticks = systick_get_value();
+        summed_ticks += start_ticks - current_ticks ;
+        if (current_ticks > start_ticks)
+            summed_ticks += (SYSTICK_RELOAD);
+        start_ticks = current_ticks;
+    }
 }

@@ -40,6 +40,8 @@
 #define DFU_IDENT               "Black Magic Firmware Upgrade"
 #define DFU_IFACE_STRING	"@Internal Flash   /0x08000000/8*001Ka,120*001Kg"
 
+#define SYSTICK_RELOAD          9000000
+
 extern usbd_device *usbdev;
 #define CDCACM_GDB_ENDPOINT	1
 #define CDCACM_UART_ENDPOINT	3
@@ -174,6 +176,7 @@ void morse(const char *msg, char repeat);
 const char *platform_target_voltage(void);
 int platform_hwversion(void);
 void platform_delay(uint32_t delay);
+void platform_udelay(uint16_t usec);
 
 /* <cdcacm.c> */
 void cdcacm_init(void);
