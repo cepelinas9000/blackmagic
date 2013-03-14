@@ -40,14 +40,14 @@ jtagtap_tdi_tdo_seq(uint8_t *DO, const uint8_t final_tms, const uint8_t *DI, int
 {
 	uint8_t index = 1;
 	while(ticks--) {
-		if(jtagtap_next(ticks?0:final_tms, *DI & index)) {
+		if(jtagtap_next(ticks?0:final_tms, ((DI)?*DI:0) & index)) {
 			*DO |= index;
 		} else {
 			*DO &= ~index;
 		}
 		if(!(index <<= 1)) {
 			index = 1;
-			DI++; DO++;
+			if (DI)DI++; DO++;
 		}
 	}
 }
