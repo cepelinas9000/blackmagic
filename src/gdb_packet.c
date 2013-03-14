@@ -150,13 +150,17 @@ void gdb_putpacket_f(const unsigned char *fmt, ...)
 
 void gdb_out(const char *buf)
 {
-	char *hexdata;
-	int i;
+	return gdb_n_out(buf, strlen(buf));
+}
 
-	hexdata = alloca((i = strlen(buf)*2 + 1) + 1);
+void gdb_n_out(const char *buf, int len)
+{
+	char *hexdata;
+
+	hexdata = alloca(len*2  + 1);
 	hexdata[0] = 'O';
-	hexify(hexdata+1, buf, strlen(buf));
-	gdb_putpacket(hexdata, i);
+	hexify(hexdata+1, buf, len);
+	gdb_putpacket(hexdata, 2*len+1);
 }
 
 void gdb_outf(const char *fmt, ...)

@@ -29,6 +29,7 @@ void gdb_putpacket(unsigned char *packet, int size);
 void gdb_putpacket_f(const unsigned char *packet, ...);
 
 void gdb_out(const char *buf);
+void gdb_n_out(const char *buf, int len);
 void gdb_outf(const char *fmt, ...);
 
 #endif
