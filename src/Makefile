@@ -29,6 +29,7 @@ SRC =			\
 	main.c		\
 	nxp_tgt.c	\
 	platform.c	\
+	raw_jtag.c	\
 	sam3x.c		\
 	stm32f1.c	\
 	stm32f4.c	\

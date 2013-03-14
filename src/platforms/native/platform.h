@@ -35,6 +35,7 @@
 #define INLINE_GPIO
 #define CDCACM_PACKET_SIZE 	64
 #define PLATFORM_HAS_TRACESWO
+#define PLATFORM_HAS_JTAG
 #define BOARD_IDENT             "Black Magic Probe, (Firmware 1.5" VERSION_SUFFIX ", build " BUILDDATE ")"
 #define BOARD_IDENT_DFU		"Black Magic Probe (Upgrade), (Firmware 1.5" VERSION_SUFFIX ", build " BUILDDATE ")"
 #define DFU_IDENT               "Black Magic Firmware Upgrade"
