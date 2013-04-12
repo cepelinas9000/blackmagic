@@ -41,7 +41,9 @@
 static bool cmd_version(void);
 static bool cmd_help(target *t);
 
+#if defined (PLATFORM_HAS_JTAG)
 static bool cmd_jtag_scan(target *t, int argc, char **argv);
+#endif
 static bool cmd_swdp_scan(void);
 static bool cmd_targets(target *t);
 static bool cmd_morse(void);
@@ -185,6 +187,7 @@ bool cmd_swdp_scan(void)
 	return true;
 	
 }
+#endif
 
 bool cmd_targets(target *cur_target)
 {
@@ -204,7 +207,6 @@ bool cmd_targets(target *cur_target)
 
 	return true;
 }
-#endif
 
 bool cmd_morse(void)
 {
