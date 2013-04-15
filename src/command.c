@@ -30,20 +30,16 @@
 #include "command.h"
 #include "gdb_packet.h"
 
+#include "jtag_scan.h"
+#include "raw_jtag.h"
 #include "target.h"
 
 #include "adiv5.h"
-#if defined (PLATFORM_HAS_JTAG)
-#include "jtag_scan.h"
-#include "raw_jtag.h"
-#endif
 
 static bool cmd_version(void);
 static bool cmd_help(target *t);
 
-#if defined (PLATFORM_HAS_JTAG)
 static bool cmd_jtag_scan(target *t, int argc, char **argv);
-#endif
 static bool cmd_swdp_scan(void);
 static bool cmd_targets(target *t);
 static bool cmd_morse(void);
@@ -54,10 +50,8 @@ static bool cmd_traceswo(void);
 const struct command_s cmd_list[] = {
 	{"version", (cmd_handler)cmd_version, "Display firmware version info"},
 	{"help", (cmd_handler)cmd_help, "Display help for monitor commands"},
-#if defined (PLATFORM_HAS_JTAG)
 	{"jtag_scan", (cmd_handler)cmd_jtag_scan, "Scan JTAG chain for devices" },
 	{"raw_jtag", (cmd_handler)cmd_raw_jtag, "Process raw JTAG tokens" },
-#endif
 	{"swdp_scan", (cmd_handler)cmd_swdp_scan, "Scan SW-DP for devices" },
 	{"targets", (cmd_handler)cmd_targets, "Display list of available targets" },
 	{"morse", (cmd_handler)cmd_morse, "Display morse error message" },
@@ -136,7 +130,6 @@ bool cmd_help(target *t)
 	return true;
 }
 
-#if defined (PLATFORM_HAS_JTAG)
 static bool cmd_jtag_scan(target *t, int argc, char **argv)
 {
 	(void)t;
@@ -187,7 +180,6 @@ bool cmd_swdp_scan(void)
 	return true;
 	
 }
-#endif
 
 bool cmd_targets(target *cur_target)
 {
