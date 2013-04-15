@@ -33,3 +33,4 @@ blackmagic_dfu.hex:	blackmagic_dfu
 
 host_clean:
 	-rm blackmagic.bin blackmagic_dfu blackmagic_dfu.bin blackmagic_dfu.hex
+

@@ -51,6 +51,7 @@ int platform_init(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
+	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_CRCEN);
 
 	/* Unmap JTAG Pins so we can reuse as GPIO */
         data = AFIO_MAPR;
@@ -85,8 +86,8 @@ int platform_init(void)
         AFIO_MAPR = data;
 
 	/* Setup heartbeat timer */
-	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
-	systick_set_reload(SYSTICK_RELOAD);	/* Interrupt us at 10 Hz */
+	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8); 
+	systick_set_reload(900000);	/* Interrupt us at 10 Hz */
 	SCB_SHPR(11) &= ~((15 << 4) & 0xff);
 	SCB_SHPR(11) |= ((14 << 4) & 0xff);
 	systick_interrupt_enable();
@@ -111,10 +112,10 @@ void platform_delay(uint32_t delay)
 
 void sys_tick_handler(void)
 {
-	if(running_status)
+	if(running_status) 
 		gpio_toggle(LED_PORT, led_idle_run);
 
-	if(timeout_counter)
+	if(timeout_counter) 
 		timeout_counter--;
 }
 
