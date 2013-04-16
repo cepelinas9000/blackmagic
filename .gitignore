@@ -11,4 +11,4 @@ mapfile
 *.pyc
 tags
 .gdbinit
-
+*.epf
